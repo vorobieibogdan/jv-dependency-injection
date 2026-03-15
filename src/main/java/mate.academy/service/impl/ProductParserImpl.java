@@ -1,33 +1,25 @@
 package mate.academy.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.math.BigDecimal;
 import mate.academy.lib.Component;
-import mate.academy.lib.Inject;
 import mate.academy.model.Product;
-import mate.academy.service.FileReaderService;
 import mate.academy.service.ProductParser;
-import mate.academy.service.ProductService;
 
 @Component
-public class ProductServiceImpl implements ProductService {
-
-    @Inject
-    private FileReaderService fileReaderService;
-
-    @Inject
-    private ProductParser productParser;
+public class ProductParserImpl implements ProductParser {
 
     @Override
-    public List<Product> getAllFromFile(String filePath) {
-        List<String> lines = fileReaderService.readFile(filePath);
-        List<Product> products = new ArrayList<>();
+    public Product parse(String productInfo) {
+        String[] data = productInfo.split(",");
 
-        for (String line : lines) {
-            products.add(productParser.parse(line));
-        }
+        Product product = new Product();
+        product.setId(Long.parseLong(data[0]));
+        product.setName(data[1]);
+        product.setCategory(data[2]);
+        product.setDescription(data[3]);
+        product.setPrice(new BigDecimal(data[4]));
 
-        return products;
+        return product;
     }
 }
 
