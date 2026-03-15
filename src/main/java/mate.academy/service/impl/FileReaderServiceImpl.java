@@ -13,18 +13,18 @@ public class FileReaderServiceImpl implements FileReaderService {
 
     @Override
     public List<String> readFile(String fileName) {
-        List<String> result = new ArrayList<>();
+        List<String> lines = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = reader.readLine()) != null) {
-                result.add(line);
+                lines.add(line);
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new RuntimeException("Can't read file", e);
         }
 
-        return result;
+        return lines;
     }
 }
 

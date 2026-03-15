@@ -19,7 +19,7 @@ public class Injector {
         Class<?> implementationClass = findImplementation(interfaceClazz);
 
         if (!implementationClass.isAnnotationPresent(Component.class)) {
-            throw new RuntimeException("Class not annotated with @Component");
+            throw new RuntimeException("Class is not annotated with @Component");
         }
 
         try {
@@ -49,8 +49,7 @@ public class Injector {
         if (interfaceClazz == FileReaderService.class) {
             return FileReaderServiceImpl.class;
         }
-
-        throw new RuntimeException("No implementation for " + interfaceClazz.getName());
+        throw new RuntimeException("No implementation found");
     }
 }
 
